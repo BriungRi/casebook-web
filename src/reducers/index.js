@@ -31,7 +31,7 @@ function app(state = initialState, action) {
         password: "",
         firstName: action.firstName,
         lastName: action.lastName,
-        newsFeed: [],
+        newsFeed: feed,
         userFeed: []
       };
     case LOGOUT:

@@ -8,12 +8,13 @@ export const UPDATE_NEWS_FEED = "UPDATE_NEWS_FEED";
 export const UPDATE_USER_FEED = "UPDATE_USER_FEED";
 export const UPDATE_POST_TEXT = "UPDATE_POST_TEXT";
 
-export function login(username, firstName, lastName) {
+export function login(username, firstName, lastName, feed) {
   return {
     type: LOGIN,
     username,
     firstName,
-    lastName
+    lastName,
+    feed
   };
 }
 

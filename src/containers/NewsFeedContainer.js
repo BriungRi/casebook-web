@@ -2,6 +2,9 @@ import { connect } from "react-redux";
 import NewsFeed from "./../components/NewsFeed";
 import { updatePostText, updateNewsFeed } from "./../actions";
 
+// API:
+// In: {username: String, postText: String}
+// Out: { newsFeed: Array<FeedItem> } where newsFeed is the updated News Feed
 const uploadPost = postText => {
   // Upload postText
   const res = {

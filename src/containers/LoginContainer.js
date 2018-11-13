@@ -2,8 +2,11 @@ import Login from "./../components/Login";
 import { updateUsername, updatePassword, login } from "./../actions";
 import { connect } from "react-redux";
 
+// API: 
+// In: {username: String, password: String}
+// Out: { firstName: String, lastName: String, newsFeed: Array<FeedItem>}
 const auth = (username, password) => {
-  return { firstName: "test", lastName: "user", username: username };
+  return { firstName: "test", lastName: "user", newsFeed=[], username: username };
 };
 
 const mapStateToProps = state => {
@@ -32,7 +35,7 @@ const mapDispatchToProps = dispatch => {
           res.firstName !== undefined &&
           res.lastName !== undefined
         ) {
-          dispatch(login(res.username, res.firstName, res.lastName));
+          dispatch(login(res.username, res.firstName, res.lastName, res.newsFeed));
         }
         event.preventDefault();
       };

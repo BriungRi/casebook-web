@@ -6,14 +6,16 @@ import Title from "./../components/Title";
 import AppContainer from "./AppContainer";
 import LoginContainer from "./LoginContainer";
 import SignupContainer from "./SignupContainer";
+import UserPageContainer from "./UserPageContainer";
 
 const Root = ({ store }) => (
   <Provider store={store}>
     <div>
       <Title />
-      <Route path="/" component={AppContainer} />
+      <Route exact path="/" component={AppContainer} />
       <Route path="/login" component={withRouter(LoginContainer)} />
       <Route path="/signup" component={withRouter(SignupContainer)} />
+      <Route path="/user/:username" component={UserPageContainer} />
     </div>
   </Provider>
 );

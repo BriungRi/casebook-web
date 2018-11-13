@@ -1,16 +1,16 @@
 import React from "react";
-import FeedItem from "./../components/FeedItem";
 import PostArea from "./../components/PostArea";
+import FeedList from "./FeedList";
 
 const NewsFeed = ({ postText, feed, handlePostTextChange, post }) => {
   return (
     <div>
-      <PostArea postText={postText} handlePostTextChange={handlePostTextChange} post={post(postText)} />
-      <ul>
-        {feed.map((feedItem, index) => (
-          <FeedItem key={index} {...feedItem} />
-        ))}
-      </ul>
+      <PostArea
+        postText={postText}
+        handlePostTextChange={handlePostTextChange}
+        post={post(postText)}
+      />
+      <FeedList feed={feed} />
     </div>
   );
 };

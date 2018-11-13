@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const FeedItem = ({ posterUsername, text }) => {
   return (
     <div>
-      <h3>{posterUsername}</h3>
+      <Link to={"/user/" + posterUsername}>{posterUsername}</Link>
       <p>{text}</p>
-      <hr/>
+      <hr />
     </div>
   );
 };
