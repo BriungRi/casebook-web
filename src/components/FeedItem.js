@@ -1,6 +1,33 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const getReadableTime = UNIX_timestamp => {
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time =
+    date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
+  return time;
+};
+
 const FeedItem = ({
   id,
   author_username,
@@ -9,7 +36,7 @@ const FeedItem = ({
   time,
   canDelete,
   updatePost,
-  deletePost,
+  deletePost
 }) => {
   const curriedDeletePost = deletePost(id);
   const curriedUpdatePost = updatePost(id);
@@ -21,7 +48,7 @@ const FeedItem = ({
         written by{" "}
         <Link to={"/user/" + author_username}>{author_username}</Link>
       </p>
-      <p>posted at {time}</p>
+      <p>posted at {getReadableTime(time)}</p>
       {canDelete ? (
         <button onClick={curriedUpdatePost}>Update Post</button>
       ) : null}
