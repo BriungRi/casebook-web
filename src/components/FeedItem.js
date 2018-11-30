@@ -8,9 +8,11 @@ const FeedItem = ({
   body,
   time,
   canDelete,
-  deletePost
+  updatePost,
+  deletePost,
 }) => {
   const curriedDeletePost = deletePost(id);
+  const curriedUpdatePost = updatePost(id);
   return (
     <div>
       <h3>{title}</h3>
@@ -20,6 +22,9 @@ const FeedItem = ({
         <Link to={"/user/" + author_username}>{author_username}</Link>
       </p>
       <p>posted at {time}</p>
+      {canDelete ? (
+        <button onClick={curriedUpdatePost}>Update Post</button>
+      ) : null}
       {canDelete ? (
         <button onClick={curriedDeletePost}>Delete Post</button>
       ) : null}

@@ -14,7 +14,9 @@ class UserPage extends Component {
       this.props.postTitle,
       this.props.postText
     );
+    const curriedUpdatePost = this.props.updatePost(this.props.username, this.props.history);
     const curriedDeletePost = this.props.deletePost(this.props.username);
+    const curriedDeleteAccount = this.props.deleteAccount(this.props.history);
     return (
       <div>
         {this.props.isOwnPage ? (
@@ -23,6 +25,7 @@ class UserPage extends Component {
             postText={this.props.postText}
             handlePostTitleChange={this.props.handlePostTitleChange}
             handlePostTextChange={this.props.handlePostTextChange}
+            updating={false}
             post={curriedPost}
           />
         ) : null}
@@ -42,10 +45,11 @@ class UserPage extends Component {
         <FeedList
           feed={this.props.posts}
           canDelete={this.props.isOwnPage}
+          updatePost={curriedUpdatePost}
           deletePost={curriedDeletePost}
         />
         {this.props.isOwnPage ? (
-          <button onClick={this.props.deleteAccount}>Delete Account</button>
+          <button onClick={curriedDeleteAccount}>Delete Account</button>
         ) : null}
       </div>
     );

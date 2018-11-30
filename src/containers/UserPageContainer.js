@@ -23,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     postTitle: state.postTitle,
     postText: state.postText,
+    updating: false,
     posts: state.posts,
     username: username,
     loggedIn: state.loggedIn,
@@ -78,6 +79,14 @@ const mapDispatchToProps = dispatch => {
         event.preventDefault();
       };
     },
+    updatePost: (username, history) => {
+      return id => {
+        return event => {
+          history.push("/update/" + username + "/" + id);
+          event.preventDefault();
+        };
+      };
+    },
     deletePost: username => {
       return postId => {
         return event => {
@@ -90,11 +99,14 @@ const mapDispatchToProps = dispatch => {
         };
       };
     },
-    deleteAccount: event => {
-      deleteUser(function(res) {
-        dispatch(logout());
-      });
-      event.preventDefault();
+    deleteAccount: history => {
+      return event => {
+        deleteUser(function(res) {
+          dispatch(logout());
+          history.push("/login");
+        });
+        event.preventDefault();
+      };
     }
   };
 };

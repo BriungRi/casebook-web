@@ -157,3 +157,17 @@ export const deletePost = (postId, callback) => {
       callback(res);
     });
 };
+
+export const updatePost = (post, callback) => {
+  unirest
+    .put(API_URL + "updatepost")
+    .headers({
+      "Cache-Control": "no-cache",
+      "Content-Type": "application/x-www-form-urlencoded"
+    })
+    .header("Authorization", cookies.get("token"))
+    .send(post)
+    .end(function(res) {
+      callback(res);
+    });
+};

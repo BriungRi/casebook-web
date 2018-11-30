@@ -1,7 +1,7 @@
 import React from "react";
 import FeedItem from "./../components/FeedItem";
 
-const FeedList = ({ feed, canDelete, deletePost }) => {
+const FeedList = ({ feed, canDelete, updatePost, deletePost }) => {
   return (
     <ul>
       {feed.map((feedItem, index) => (
@@ -9,6 +9,7 @@ const FeedList = ({ feed, canDelete, deletePost }) => {
           key={index}
           {...feedItem}
           canDelete={canDelete}
+          updatePost={updatePost}
           deletePost={deletePost}
         />
       ))}

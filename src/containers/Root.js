@@ -7,6 +7,7 @@ import AppContainer from "./AppContainer";
 import LoginContainer from "./LoginContainer";
 import SignupContainer from "./SignupContainer";
 import UserPageContainer from "./UserPageContainer";
+import UpdatePostContainer from "./UpdatePostContainer";
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -15,7 +16,8 @@ const Root = ({ store }) => (
       <Route exact path="/" component={AppContainer} />
       <Route path="/login" component={withRouter(LoginContainer)} />
       <Route path="/signup" component={withRouter(SignupContainer)} />
-      <Route path="/user/:username" component={UserPageContainer} />
+      <Route path="/user/:username" component={withRouter(UserPageContainer)} />
+      <Route path="/update/:username/:id" component={withRouter(UpdatePostContainer)} />
     </div>
   </Provider>
 );

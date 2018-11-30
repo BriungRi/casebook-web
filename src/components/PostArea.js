@@ -5,6 +5,7 @@ const PostArea = ({
   postText,
   handlePostTitleChange,
   handlePostTextChange,
+  updating,
   post
 }) => {
   return (
@@ -25,7 +26,7 @@ const PostArea = ({
         cols="50"
       />
       <br />
-      <button onClick={post}>Post</button>
+      <button onClick={post}>{updating ? "Update" : "Post"}</button>
     </div>
   );
 };
