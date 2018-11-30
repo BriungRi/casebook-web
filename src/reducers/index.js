@@ -1,12 +1,12 @@
 import {
   LOGIN,
+  UPDATE_ALL_USERS,
+  UPDATE_FOLLOWING,
   LOGOUT,
-  UPDATE_NEWS_FEED,
-  UPDATE_USER_FEED,
+  UPDATE_POSTS,
   UPDATE_USERNAME,
   UPDATE_PASSWORD,
-  UPDATE_FIRSTNAME,
-  UPDATE_LASTNAME,
+  UPDATE_POST_TITLE,
   UPDATE_POST_TEXT
 } from "./../actions";
 
@@ -14,11 +14,11 @@ const initialState = {
   loggedIn: false,
   username: "",
   password: "",
-  firstName: "",
-  lastName: "",
+  postTitle: "",
   postText: "",
-  newsFeed: [],
-  userFeed: []
+  posts: [],
+  allUsers: [],
+  following: []
 };
 
 function app(state = initialState, action) {
@@ -27,34 +27,20 @@ function app(state = initialState, action) {
       return {
         ...state,
         loggedIn: true,
-        username: action.username,
         password: "",
-        firstName: action.firstName,
-        lastName: action.lastName,
-        newsFeed: feed,
-        userFeed: []
+        following: []
       };
     case LOGOUT:
       return initialState;
-    case UPDATE_NEWS_FEED:
+    case UPDATE_ALL_USERS:
       return {
         ...state,
-        newsFeed: action.feed
+        allUsers: action.users
       };
-    case UPDATE_USER_FEED:
+    case UPDATE_FOLLOWING:
       return {
         ...state,
-        userFeed: action.feed
-      };
-    case UPDATE_FIRSTNAME:
-      return {
-        ...state,
-        firstName: action.firstName
-      };
-    case UPDATE_LASTNAME:
-      return {
-        ...state,
-        lastName: action.lastName
+        following: action.following
       };
     case UPDATE_USERNAME:
       return {
@@ -66,11 +52,21 @@ function app(state = initialState, action) {
         ...state,
         password: action.password
       };
+    case UPDATE_POSTS:
+      return {
+        ...state,
+        posts: action.posts
+      }
+    case UPDATE_POST_TITLE:
+      return {
+        ...state,
+        postTitle: action.postTitle
+      };
     case UPDATE_POST_TEXT:
       return {
         ...state,
         postText: action.postText
-      }
+      };
     default:
       return state;
   }

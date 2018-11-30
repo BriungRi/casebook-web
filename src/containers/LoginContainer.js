@@ -1,19 +1,19 @@
 import Login from "./../components/Login";
-import { updateUsername, updatePassword, login } from "./../actions";
+import {
+  updateUsername,
+  updatePassword,
+  login,
+  updateFollowing,
+  updateAllUsers
+} from "./../actions";
 import { connect } from "react-redux";
-
-// API: 
-// In: {username: String, password: String}
-// Out: { firstName: String, lastName: String, newsFeed: Array<FeedItem>}
-const auth = (username, password) => {
-  return { firstName: "test", lastName: "user", newsFeed=[], username: username };
-};
+import { auth, getFollowing, getAllUsers } from "./../network/api";
 
 const mapStateToProps = state => {
   return {
     loggedIn: state.loggedIn,
     username: state.username,
-    password: state.password,
+    password: state.password
   };
 };
 
@@ -29,14 +29,19 @@ const mapDispatchToProps = dispatch => {
     },
     login: (username, password) => {
       return event => {
-        const res = auth(username, password);
-        if (
-          res.username !== undefined &&
-          res.firstName !== undefined &&
-          res.lastName !== undefined
-        ) {
-          dispatch(login(res.username, res.firstName, res.lastName, res.newsFeed));
-        }
+        auth(username, password, function(res1) {
+          getFollowing(function(res2) {
+            getAllUsers(function(res3) {
+              if (res1.body.result === "success") {
+                dispatch(login());
+                dispatch(updateFollowing(res2.body.following));
+                dispatch(updateAllUsers(res3.body.users));
+              } else {
+                alert("Incorrect username or password");
+              }
+            });
+          });
+        });
         event.preventDefault();
       };
     }

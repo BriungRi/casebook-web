@@ -3,39 +3,17 @@ import { Link } from "react-router-dom";
 import "./../style/Login.css";
 
 const Signup = ({
-  firstName,
-  lastName,
   username,
   password,
-  handleFirstNameChange,
-  handleLastNameChange,
   handleUsernameChange,
   handlePasswordChange,
+  history,
   signup
 }) => {
+  const curriedSignup = signup(username, password, history)
   return (
     <div className="Login">
-      <form onSubmit={signup(firstName, lastName, username, password)}>
-        <label>
-          First Name:
-          <input
-            type="text"
-            name="firstName"
-            value={firstName}
-            onChange={handleFirstNameChange}
-          />
-        </label>
-        <br />
-        <label>
-          Last Name:
-          <input
-            type="text"
-            name="lastName"
-            value={lastName}
-            onChange={handleLastNameChange}
-          />
-        </label>
-        <br />
+      <form onSubmit={curriedSignup}>
         <label>
           Username:
           <input

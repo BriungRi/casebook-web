@@ -1,15 +1,7 @@
 import Signup from "./../components/Signup";
-import {
-  updateFirstName,
-  updateLastName,
-  updateUsername,
-  updatePassword,
-} from "./../actions";
+import { updateUsername, updatePassword } from "./../actions";
 import { connect } from "react-redux";
-
-const submitNewUser = (firstName, lastName, username, password) => {
-  // send creds to server
-};
+import { makeUser } from "./../network/api";
 
 const mapStateToProps = state => {
   return {
@@ -20,14 +12,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    handleFirstNameChange: event => {
-      dispatch(updateFirstName(event.target.value));
-      event.preventDefault();
-    },
-    handleLastNameChange: event => {
-      dispatch(updateLastName(event.target.value));
-      event.preventDefault();
-    },
     handleUsernameChange: event => {
       dispatch(updateUsername(event.target.value));
       event.preventDefault();
@@ -36,16 +20,18 @@ const mapDispatchToProps = dispatch => {
       dispatch(updatePassword(event.target.value));
       event.preventDefault();
     },
-    signup: (firstName, lastName, username, password) => {
+    signup: (username, password, history) => {
       return event => {
-        const res = submitNewUser(firstName, lastName, username, password);
-        if (
-          res.username !== undefined &&
-          res.firstName !== undefined &&
-          res.lastName !== undefined
-        ) {
-          this.props.history.push("/login");
-        }
+        makeUser(username, password, function(res) {
+          console.log(res.body.result);
+          if (res.error) {
+            alert(res.error);
+          } else if (res.body.result === "success") {
+            history.push("/login");
+          } else if (res.body.result === "exists") {
+            alert("Username already in use");
+          }
+        });
         event.preventDefault();
       };
     }

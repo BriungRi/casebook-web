@@ -1,16 +1,20 @@
 import React from "react";
-import PostArea from "./../components/PostArea";
-import FeedList from "./FeedList";
+import UserList from "./UserList";
 
-const NewsFeed = ({ postText, feed, handlePostTextChange, post }) => {
+const NewsFeed = ({ following, allUsers, logout }) => {
+  console.log(following);
   return (
     <div>
-      <PostArea
+      {/* <PostArea
         postText={postText}
         handlePostTextChange={handlePostTextChange}
         post={post(postText)}
-      />
-      <FeedList feed={feed} />
+      /> */}
+      <h2>Follow List</h2>
+      <UserList users={following} />
+      <h2>All Users</h2>
+      <UserList users={allUsers} />
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };
